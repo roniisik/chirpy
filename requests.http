@@ -1,0 +1,48 @@
+GET http://localhost:8080/admin/metrics HTTP/1.1
+
+###
+
+GET http://localhost:8080/app/ HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/chirps HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjaGlycHktYWNjZXNzIiwic3ViIjoiNTkwMTk2YTAtMTRkNC00Njk0LTg1ODktODA4MTU3NzE1NDU0IiwiZXhwIjoxNzM3ODI1MDM2LCJpYXQiOjE3Mzc4MjE0MzZ9.kyI1OfUaAWHx9B2vozwnk3GYUL8YBXvQGNEactNpp5M
+content-type: application/json
+
+{
+    "body": "This is a kerfuffle opinion I need to share with the world",
+    "user_id": "3e839fd4-602b-4c96-9860-7a8ac1e9bb6e"
+}
+
+###
+
+POST http://localhost:8080/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "password": "hello",
+    "email": "hello@example.com"
+}
+
+###
+
+POST http://localhost:8080/admin/reset HTTP/1.1
+
+###
+
+GET http://localhost:8080/api/chirps HTTP/1.1
+
+###
+
+GET http://localhost:8080/api/chirps/d3708544-15b0-4d95-8c5c-532861945108 HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "password": "hello",
+    "email": "hello@example.com"
+}
