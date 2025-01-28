@@ -46,3 +46,8 @@ Content-Type: application/json
     "password": "hello",
     "email": "hello@example.com"
 }
+
+###
+
+POST http://localhost:8080/api/refresh HTTP/1.1
+Authorization: Bearer 4b6eba683ffc33533994c9536ee21325402f484bc31a1c7f4136fecfd7bf6381

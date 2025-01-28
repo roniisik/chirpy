@@ -47,6 +47,10 @@ func main() {
 	mux.HandleFunc("POST /api/chirps", cfg.handlerChirpsCreate)
 	mux.HandleFunc("POST /api/users", cfg.handlerUsersCreate)
 	mux.HandleFunc("POST /api/login", cfg.handlerLogin)
+	mux.HandleFunc("POST /api/refresh", cfg.handlerRefreshToken)
+	mux.HandleFunc("POST /api/revoke", cfg.handlerRevokeToken)
+	mux.HandleFunc("PUT /api/users", cfg.handlerUpdateUser)
+	mux.HandleFunc("DELETE /api/chirps/{chirpID}", cfg.handlerDeleteChirp)
 	log.Fatal(server.ListenAndServe())
 }
 
