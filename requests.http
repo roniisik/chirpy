@@ -7,12 +7,12 @@ GET http://localhost:8080/app/ HTTP/1.1
 ###
 
 POST http://localhost:8080/api/chirps HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjaGlycHktYWNjZXNzIiwic3ViIjoiNTkwMTk2YTAtMTRkNC00Njk0LTg1ODktODA4MTU3NzE1NDU0IiwiZXhwIjoxNzM3ODI1MDM2LCJpYXQiOjE3Mzc4MjE0MzZ9.kyI1OfUaAWHx9B2vozwnk3GYUL8YBXvQGNEactNpp5M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjaGlycHktYWNjZXNzIiwic3ViIjoiNWU1Y2E1N2MtMjlhYi00YjFjLTgwMzYtNmFiNWFkMGRhOTg3IiwiZXhwIjoxNzM4MTU2Njg4LCJpYXQiOjE3MzgxNTMwODh9.A-mExUHVVtjjmOxDkkrbT3JWNe9z36T3oQnDmK5xVOE
 content-type: application/json
 
 {
     "body": "This is a kerfuffle opinion I need to share with the world",
-    "user_id": "3e839fd4-602b-4c96-9860-7a8ac1e9bb6e"
+    "user_id": "5e5ca57c-29ab-4b1c-8036-6ab5ad0da987"
 }
 
 ###

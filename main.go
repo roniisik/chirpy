@@ -26,6 +26,7 @@ func main() {
 	if secret == "" {
 		log.Fatal("SECRET environment variable not set")
 	}
+	polka := os.Getenv("POLKA_KEY")
 
 	mux := http.NewServeMux()
 	server := &http.Server{
@@ -36,6 +37,7 @@ func main() {
 		dbQueries: database.New(db),
 		platform:  plat,
 		secretKey: secret,
+		polkaKey:  polka,
 	}
 
 	mux.Handle("/app/", http.StripPrefix("/app", cfg.middlewareMetricsInc(http.FileServer(http.Dir(".")))))
@@ -49,6 +51,7 @@ func main() {
 	mux.HandleFunc("POST /api/login", cfg.handlerLogin)
 	mux.HandleFunc("POST /api/refresh", cfg.handlerRefreshToken)
 	mux.HandleFunc("POST /api/revoke", cfg.handlerRevokeToken)
+	mux.HandleFunc("POST /api/polka/webhooks", cfg.handlerUpgradeUser)
 	mux.HandleFunc("PUT /api/users", cfg.handlerUpdateUser)
 	mux.HandleFunc("DELETE /api/chirps/{chirpID}", cfg.handlerDeleteChirp)
 	log.Fatal(server.ListenAndServe())
@@ -59,6 +62,7 @@ type apiConfig struct {
 	dbQueries      *database.Queries
 	platform       string
 	secretKey      string
+	polkaKey       string
 }
 
 func (cfg *apiConfig) middlewareMetricsInc(next http.Handler) http.Handler {

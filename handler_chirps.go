@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"sort"
 	"strings"
 	"time"
 
@@ -42,13 +43,37 @@ func (cfg *apiConfig) handlerGetSingleChirp(w http.ResponseWriter, r *http.Reque
 }
 
 func (cfg *apiConfig) handlerGetChirps(w http.ResponseWriter, r *http.Request) {
-	chirps, err := cfg.dbQueries.GetChirps(r.Context())
-	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "Error during GetChirps query", err)
-		return
+	returnChirps := []Chirp{}
+	chirps := []database.Chirp{}
+
+	authorIDStr := r.URL.Query().Get("author_id")
+	var err error
+	if authorIDStr != "" {
+		userID, err := uuid.Parse(authorIDStr)
+		if err != nil {
+			respondWithError(w, http.StatusInternalServerError, "error parsing author id", err)
+			return
+		}
+		chirps, err = cfg.dbQueries.GetChirpsByUserID(r.Context(), userID)
+		if err != nil {
+			respondWithError(w, http.StatusInternalServerError, "failed to query chirps by user id", err)
+			return
+		}
+	} else {
+		chirps, err = cfg.dbQueries.GetChirps(r.Context())
+		if err != nil {
+			respondWithError(w, http.StatusInternalServerError, "Error during GetChirps query", err)
+			return
+		}
 	}
 
-	returnChirps := []Chirp{}
+	sortStr := r.URL.Query().Get("sort")
+	if sortStr == "desc" {
+		sort.Slice(chirps, func(i, j int) bool {
+			return i > j // Reverse order
+		})
+	}
+
 	for _, chirp := range chirps {
 		returnChirps = append(returnChirps, Chirp{
 			ID:        chirp.ID,

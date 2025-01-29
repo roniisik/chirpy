@@ -110,3 +110,14 @@ func MakeRefreshToken() (string, error) {
 
 	return token, nil
 }
+
+func GetAPIKey(h http.Header) (string, error) {
+	authHeader := h.Get("Authorization")
+	if authHeader == "" {
+		return "", errors.New("there are no values associated with the header key")
+	} else if !strings.HasPrefix(strings.ToLower(authHeader), "apikey ") {
+		return "", errors.New("header is missing 'apikey ' prefix")
+	}
+
+	return strings.Split(authHeader, " ")[1], nil
+}
